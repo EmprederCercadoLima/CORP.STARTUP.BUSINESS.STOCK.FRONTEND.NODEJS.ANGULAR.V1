@@ -67,50 +67,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Business Stock S.A.C</td>
-                            <td>Fenando zavaleta henriquez</td>
-                            <td>supplier01@yopmail.com</td>
-                            <td>455</td>
-                            <td>
-                                <div class="label label-table label-info">Avanzado</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="javascript:void(0)">Order #26589</a></td>
-                            <td>Herman Beck</td>
-                            <td>fernando.zavaleta@tismart.com</td>
-                            <td>455</td>
-                            <td>
-                                <div class="label label-table label-info">Avanzado</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="javascript:void(0)">Order #26589</a></td>
-                            <td>Herman Beck</td>
-                            <td>supplier02@tismart.com</td>
-                            <td>230</td>
-                            <td>
-                                <div class="label label-table label-success">Intermedio</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="javascript:void(0)">Order #26589</a></td>
-                            <td>Herman Beck</td>
-                            <td>fernando.zavaleta@tismart.com</td>
-                            <td>200</td>
-                            <td>
-                                <div class="label label-table label-success">Intermedio</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="javascript:void(0)">Order #26589</a></td>
-                            <td>Herman Beck</td>
-                            <td>fernando.zavaleta@tismart.com</td>
-                            <td>120</td>
-                            <td>
-                                <div class="label label-table label-danger">Basico</div>
-                            </td>
+                        <tr *ngFor="let purchaseRequest of topPurchaseRequests">
+                            <td>{{purchaseRequest.businessName}}</td>
+                            <td>{{purchaseRequest.requisitionNumber}}</td>
+                            <td>{{purchaseRequest.requisitionNumber}}</td>
+                            <td>{{purchaseRequest.requisitionNumber}}</td>
+                            <td><span class="label label-info ">Cotizar</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -133,62 +95,25 @@
                         <tr>
                             <th>Bodega</th>
                             <th>Nro Solicitud</th>
-                            <th>Contacto</th>
                             <th>Correo</th>
+                            <th>Cotizaciones</th>
                             <th>Estado</th>
                             <th>Accion</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Business Stock S.A.C</td>
-                            <td>Fenando zavaleta henriquez</td>
-                            <td>supplier01@yopmail.com</td>
-                            <td>455</td>
+                        <tr *ngFor="let purchaseRequest of topPurchaseRequests">
+                            <th style="display: none;">{{purchaseRequest.idPurchaseRequest}}</th>
+                            <td>{{purchaseRequest.businessName}}</td>
+                            <a routerLink="../purchaserequest/{{purchaseRequest.idPurchaseRequest}}"><td>{{purchaseRequest.requisitionNumber}}</td></a>
+                            <td>{{purchaseRequest.userCreate.email}}</td>
+                            <td>{{purchaseRequest.quotations}}</td>
                             <td>
-                                <div class="label label-table label-info">Avanzado</div>
+                                <span [ngClass]="getClassStatusTopPurchaseRequest(purchaseRequest.status.value)">
+                                    {{purchaseRequest.status.description}}
+                                </span>
                             </td>
-                            <td>Cotizar</td>
-                        </tr>
-                        <tr>
-                            <td><a href="javascript:void(0)">Order #26589</a></td>
-                            <td>Herman Beck</td>
-                            <td>fernando.zavaleta@tismart.com</td>
-                            <td>455</td>
-                            <td>
-                                <div class="label label-table label-info">Avanzado</div>
-                            </td>
-                            <td>Cotizar</td>
-                        </tr>
-                        <tr>
-                            <td><a href="javascript:void(0)">Order #26589</a></td>
-                            <td>Herman Beck</td>
-                            <td>supplier02@tismart.com</td>
-                            <td>230</td>
-                            <td>
-                                <div class="label label-table label-success">Intermedio</div>
-                            </td>
-                            <td>Cotizar</td>
-                        </tr>
-                        <tr>
-                            <td><a href="javascript:void(0)">Order #26589</a></td>
-                            <td>Herman Beck</td>
-                            <td>fernando.zavaleta@tismart.com</td>
-                            <td>200</td>
-                            <td>
-                                <div class="label label-table label-success">Intermedio</div>
-                            </td>
-                            <td>Cotizar</td>
-                        </tr>
-                        <tr>
-                            <td><a href="javascript:void(0)">Order #26589</a></td>
-                            <td>Herman Beck</td>
-                            <td>fernando.zavaleta@tismart.com</td>
-                            <td>120</td>
-                            <td>
-                                <div class="label label-table label-danger">Basico</div>
-                            </td>
-                            <td>Cotizar</td>
+                            <td>cotizar</td>
                         </tr>
                     </tbody>
                 </table>

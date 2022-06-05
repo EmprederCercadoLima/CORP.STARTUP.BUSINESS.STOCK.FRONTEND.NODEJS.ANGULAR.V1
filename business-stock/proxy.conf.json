@@ -1,0 +1,47 @@
+{
+  "/authentications/*": {
+    "target": "http://0.0.0.0:3001/api/authentications",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/authentications": ""
+    }
+  },
+  "/purchase-requests/*": {
+    "target": "http://0.0.0.0:3004/api/purchase-requests",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/purchase-requests": ""
+    }
+  },
+  "/purchase-orders/*": {
+    "target": "http://0.0.0.0:3003/api/purchase-orders",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/purchase-orders": ""
+    }
+  },
+  "/quotations/*": {
+    "target": "http://0.0.0.0:3006/api/quotations",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/quotations": ""
+    }
+  },
+  "/dashboards/*": {
+    "target": "http://0.0.0.0:3005/api/dashboards",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dashboards": ""
+    }
+  }
+}

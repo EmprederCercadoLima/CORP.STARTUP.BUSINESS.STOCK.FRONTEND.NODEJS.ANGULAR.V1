@@ -9,16 +9,24 @@ import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { PurchaseRequestCreateComponent } from './purchase-request/create/create.component';
 import { QuotationCreateComponent } from './quotation/create/create.component';
+import { PurchaseRequestEditComponent } from './purchase-request/edit/edit.component';
+import { QuotationEditComponent } from './quotation/edit/edit.component';
+import { PurchaseRequestInfoComponent } from './purchase-request/info/info.component';
+import { QuotationInfoComponent } from './quotation/info/info.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     PurchaseOrderComponent,
     PurchaseRequestComponent,
+    PurchaseRequestInfoComponent,
+    PurchaseRequestCreateComponent,
+    PurchaseRequestEditComponent,
     QuotationComponent,
     PagesComponent,
-    PurchaseRequestCreateComponent,
-    QuotationCreateComponent
+    QuotationCreateComponent,
+    QuotationEditComponent,
+    QuotationInfoComponent,
   ],
   exports: [
     DashboardComponent,
