@@ -13,6 +13,9 @@ import { PurchaseRequestEditComponent } from './purchase-request/edit/edit.compo
 import { QuotationEditComponent } from './quotation/edit/edit.component';
 import { PurchaseRequestInfoComponent } from './purchase-request/info/info.component';
 import { QuotationInfoComponent } from './quotation/info/info.component';
+import { ProductComponent } from './manage/product/product.component';
+import { FormsModule } from '@angular/forms';
+import { PurchaseRequestCreateSearchComponent } from './purchase-request/create/search/create-search.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,14 @@ import { QuotationInfoComponent } from './quotation/info/info.component';
     PurchaseRequestComponent,
     PurchaseRequestInfoComponent,
     PurchaseRequestCreateComponent,
+    PurchaseRequestCreateSearchComponent,
     PurchaseRequestEditComponent,
     QuotationComponent,
     PagesComponent,
     QuotationCreateComponent,
     QuotationEditComponent,
     QuotationInfoComponent,
+    ProductComponent,
   ],
   exports: [
     DashboardComponent,
@@ -38,7 +43,8 @@ import { QuotationInfoComponent } from './quotation/info/info.component';
   imports: [
     CommonModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
   ]
 })
 export class PagesModule { }

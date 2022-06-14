@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
 @Component({
@@ -7,26 +7,40 @@ import { DashboardService } from 'src/app/services/dashboard.service';
   styles: [
   ]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
+  public loading: boolean = true;
+
+  statistics: any;
   topPurchaseRequests: any[] = [];
 
-  constructor(private readonly dashboardService: DashboardService) { }
+  constructor(private readonly dashboardService: DashboardService) { 
+    this.loading = true;
 
-  ngOnInit(): void {
-    
     this.dashboardService.topPurchaseRequest({ skip: 1, limit: 10 }).subscribe(
       (sucess) => { 
         this.topPurchaseRequests = sucess.data.purchaseRequests
       },
-      (failed) => {console.log("failed", failed)}
+      (error) => {
+        console.error("NgxProductComponent::ngOnInit::topPurchaseRequest::error", error);
+      }
     )
 
+    this.dashboardService.totalStatistics().subscribe(
+      (sucess) => {
+        this.statistics = sucess
+        this.loading = false;
+      },
+      (error) => {
+        console.error("NgxProductComponent::ngOnInit::totalStatistics::error", error);
+      }
+    )
   }
+
+
 
   public getClassStatusTopPurchaseRequest(value: number){
     return (value == 2) ? 'label label-danger' : 'label label-warning'
- 
- }
+  }
 
 }

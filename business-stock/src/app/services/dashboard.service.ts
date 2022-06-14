@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, delay, map, pluck } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,16 @@ export class DashboardService {
       map(response => {
           return response
       }),
+      catchError(response => {
+          console.error(`${JSON.stringify(DashboardService.name)}::${this.topSupplier.name}::error`, response);
+          throw new Error(`${JSON.stringify(DashboardService.name)}::${this.topSupplier.name}::error`);
+      })
+    )
+  }
+
+  totalStatistics():Observable<any> {
+    return this.httpClient.get<any>(`${this.baseEndpoint}/v1.0/total-statistics`).pipe(
+      pluck('data'),
       catchError(response => {
           console.error(`${JSON.stringify(DashboardService.name)}::${this.topSupplier.name}::error`, response);
           throw new Error(`${JSON.stringify(DashboardService.name)}::${this.topSupplier.name}::error`);

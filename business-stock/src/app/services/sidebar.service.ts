@@ -30,6 +30,13 @@ export class SidebarService {
     title: 'PurchaseOrder',
     icon: 'mdi mdi-gauge',
     url: 'purchaseorder'
+  },
+  {
+    title: 'Manage',
+    icon: 'mdi mdi-folder-lock-open',
+    subMenu: [{
+      title: 'Product', url: 'product'
+    }]
   }]
 
   constructor() { }

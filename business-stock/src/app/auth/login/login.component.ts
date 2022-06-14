@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
 
       this.authService.postLogin(postLogin).subscribe(
           (sucess) => {
-            console.log("POST LOGIN", sucess)
               this.router.navigate(["/dashboard"])
           }, 
           (error) => {

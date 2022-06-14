@@ -17,6 +17,15 @@
       "^/purchase-requests": ""
     }
   },
+  "/shopping-cards/*": {
+    "target": "http://0.0.0.0:3004/api/shopping-cards",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/shopping-cards": ""
+    }
+  },
   "/purchase-orders/*": {
     "target": "http://0.0.0.0:3003/api/purchase-orders",
     "secure": false,
@@ -42,6 +51,15 @@
     "changeOrigin": true,
     "pathRewrite": {
       "^/dashboards": ""
+    }
+  },
+  "/products/*": {
+    "target": "http://0.0.0.0:3005/api/products",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/products": ""
     }
   }
 }

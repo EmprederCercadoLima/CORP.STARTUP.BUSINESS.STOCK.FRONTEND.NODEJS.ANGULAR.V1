@@ -29,7 +29,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/plugins/sweetalert/jquery.sweet-alert.custom.v1.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -97,7 +99,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/plugins/sweetalert/jquery.sweet-alert.custom.v1.js"
+            ]
           }
         }
       }

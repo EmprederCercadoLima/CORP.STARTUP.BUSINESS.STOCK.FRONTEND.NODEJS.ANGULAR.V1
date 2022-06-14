@@ -11,17 +11,27 @@ export class ProductService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
+  getSetup () {
+    return this.httpClient.get<any>(this.baseEndpoint + '/v1.0/setup').pipe(
+      map(response => {
+        return response
+      }),
+      catchError(response => {
+        console.error(`${JSON.stringify(ProductService.name)}::${this.getSetup.name}::error`, response);
+        throw new Error(`${JSON.stringify(ProductService.name)}::${this.getSetup.name}::error`);
+    })
+    )
+  }
+
   paginationProduct (pagination: any) {
 
-    let queryParams = new HttpParams();
-    
-    queryParams.append("page", pagination.page);
-    queryParams.append("limit", pagination.limit);
+    let url = `${this.baseEndpoint}/v1.0/${pagination.page}/${pagination.limit}`;
 
-    if(pagination.idCategory) queryParams.append("idCategory", pagination.idCategory);
-    if(pagination.keywords) queryParams.append("keywords", pagination.keywords);
+    if(pagination.idCategory) { 
+      url = `${url}?idCategory=${pagination.idCategory}`
+    }
 
-    return this.httpClient.get<any>(this.baseEndpoint + '/v1.0', { params: queryParams }).pipe(
+    return this.httpClient.get<any>(url).pipe(
       map(response => {
           return response
       }),

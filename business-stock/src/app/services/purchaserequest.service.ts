@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, delay, map, pluck } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,7 @@ export class PurchaseRequestService {
 
   getPurchaseRequestById(idPurchaseRequest: string): Observable<any> {
     return this.httpClient.get<any>(`${this.baseEndpoint}/v1.0/${idPurchaseRequest}`).pipe(
-      map(response => {
-          return response
-      }),
+      pluck('data'),
       catchError(response => {
           console.error(`${JSON.stringify(PurchaseRequestService.name)}::${this.getPurchaseRequestById.name}::error`, response);
           throw new Error(`${JSON.stringify(PurchaseRequestService.name)}::${this.getPurchaseRequestById.name}::error`);
@@ -24,11 +22,20 @@ export class PurchaseRequestService {
     )
   }
 
+  getPurchaseRequest(pagination: any): Observable<any> {
+    let url = `${this.baseEndpoint}/v1.0/${pagination.page}/${pagination.limit}`;
+    return this.httpClient.get<any>(url).pipe(
+      pluck('data'),
+      catchError(response => {
+          console.error(`${JSON.stringify(PurchaseRequestService.name)}::${this.getPurchaseRequest.name}::error`, response);
+          throw new Error(`${JSON.stringify(PurchaseRequestService.name)}::${this.getPurchaseRequest.name}::error`);
+      })
+    )
+  }
+
   postPurchaseRequest(purchaseRequest: any): Observable<any> {
     return this.httpClient.post<any>(this.baseEndpoint + '/v1.0', purchaseRequest).pipe(
-      map(response => {
-          return response
-      }),
+      pluck('data'),
       catchError(response => {
           console.error(`${JSON.stringify(PurchaseRequestService.name)}::${this.postPurchaseRequest.name}::error`, response);
           throw new Error(`${JSON.stringify(PurchaseRequestService.name)}::${this.postPurchaseRequest.name}::error`);
@@ -47,6 +54,7 @@ export class PurchaseRequestService {
       })
     )
   }
+
 
 
 }

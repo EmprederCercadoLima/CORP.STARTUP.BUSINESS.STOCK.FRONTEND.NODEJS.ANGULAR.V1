@@ -1,1 +1,47 @@
-<p>edit works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-body printableArea">
+            <h3 class="text-center"> &nbsp;<b class="text-danger">{{ purchaseRequest.grocer.businessName | uppercase }}</b></h3>
+            <h3><b>N° Solicitud</b> <span class="pull-right">{{ purchaseRequest.requisitionNumber }}</span></h3>
+
+            <h5><b>Fecha Creación</b> <span class="pull-right">{{ purchaseRequest.auditProperties.dateCreate | slice:0:10 }}</span></h5>
+            <h5><b>Fecha Delivery</b> <span class="pull-right">{{ purchaseRequest.deliveryDate | slice:0:10 }}</span></h5>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive m-t-40" style="clear: both;">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">N°</th>
+                                    <th>Producto</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of purchaseRequest.products; let i = index">
+                                    <td class="text-center">{{ i + 1 }}</td>
+                                    <td class="text-center w100"><img 
+                                        [src]="product.url"
+                                        class="img-product"
+                                    ></td>
+                                    <td>{{ product.description }}</td>
+                                    <td>{{ product.detail }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+                    <div class="text-right">
+                        <button class="btn btn-success" type="submit"> Actualizar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

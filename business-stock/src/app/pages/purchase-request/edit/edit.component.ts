@@ -10,8 +10,12 @@ import { PurchaseRequestService } from 'src/app/services/purchaserequest.service
 export class PurchaseRequestEditComponent implements OnInit {
 
   idPurchaseRequest: any;
+  purchaseRequest: any;
 
-  constructor(private readonly purchaseRequestService: PurchaseRequestService, private readonly activatedRoute: ActivatedRoute) { 
+  constructor(
+    private readonly purchaseRequestService: PurchaseRequestService, 
+    private readonly activatedRoute: ActivatedRoute
+  ) { 
   }
 
 
@@ -22,10 +26,17 @@ export class PurchaseRequestEditComponent implements OnInit {
 
 
     this.purchaseRequestService.getPurchaseRequestById(this.idPurchaseRequest).subscribe(
-      (sucess) => { console.log("SUCESS", sucess); },
-      (failed) => { console.log("FAILED", failed); } 
-    )
+      (sucess) => { 
+        this.purchaseRequest = sucess;
+        console.log("purchaseRequest", this.purchaseRequest)
+        this.purchaseRequest.deliveryDate = this.purchaseRequest.deliveryDate.slice(0, 10)
+      },
+      (failed) => { 
+        console.error("NgxPurchaseRequestEditComponent::ngOnInit::error", failed)
 
+      } 
+    )
+    
   }
 
 }
