@@ -23,15 +23,27 @@
                 <li class="nav-item hidden-sm-down"></li>
             </ul>
             <ul class="navbar-nav my-lg-0">
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"></i>
-                        <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                    <a 
+                        class="nav-link dropdown-toggle waves-effect waves-dark" 
+                        href="" 
+                        data-toggle="dropdown" 
+                        aria-haspopup="true" 
+                        aria-expanded="false"
+                        > 
+                        <i class="fa fa-shopping-cart"> </i>
+                        <div 
+                            class="notify"
+                            *ngIf="haveShoppingCards"
+                            > 
+                            <span class="heartbit"></span> 
+                            <span class="point"></span> 
+                        </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right mailbox animated fadeIn fast">
                         <ul *ngFor="let shoppingCard of shoppingCards">
                             <li>
-                                <div class="drop-title">{{shoppingCard.shoppingCardNumber}}</div>
+                                <div class="drop-title"><h3 class="text-themecolor">{{shoppingCard.shoppingCardNumber}}</h3></div>
                             </li>
                             <li>
                                 <div class="message-center">
@@ -53,6 +65,12 @@
                                 </a>
                             </li>
                         </ul>
+
+                        <div 
+                            class="mail-contnet text-center"
+                            *ngIf="!haveShoppingCards"
+                            >No existen registros
+                        </div>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -61,20 +79,13 @@
                         <ul class="dropdown-user">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="./assets/images/users/1.jpg" alt="user"></div>
                                     <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                        <h4>{{ user.firstName + user.lastName }}</h4>
+                                        <p class="text-muted">{{user.email}}</p><a class="btn btn-rounded btn-danger btn-sm">{{ typeAdmin }}</a>
+                                    </div>
                                 </div>
                             </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                            <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a routerLink="/login"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li><a (click)="logout()"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </div>
                 </li>
@@ -83,7 +94,6 @@
     </nav>
 </header>
 
-<!-- modals -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -99,7 +109,6 @@
                                 <th>Imagen</th>
                                 <th>Descripcion</th>
                                 <th>Cantidad</th>
-                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,11 +121,6 @@
                                 </td>
                                 <td>{{product.detail}}</td>
                                 <td>{{product.quantity}}</td>
-                                <td class="text-center">
-                                    <a href="#" data-toggle="tooltip" data-original-title="Close">
-                                        <i class="fa fa-close text-danger"></i> 
-                                    </a> 
-                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -126,7 +130,5 @@
                 <button type="button" class="btn btn-danger waves-effect text-left"  (click)="generatePurchaseRequest();">Generar Solicitud Compra</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>

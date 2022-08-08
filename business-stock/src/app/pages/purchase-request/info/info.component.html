@@ -1,10 +1,51 @@
 <div class="row">
-    <!-- column -->
-<div class="col-12">
-    <div class="card">
-        <div class="card-body">
-            <button type="button" class="btn waves-effect waves-light btn-block btn-info" (click)="buttonNavigationToEditPurchaseRequest()" >Info 1</button>
+    <div class="col-md-12">
+        <div class="card card-body printableArea">
+            <h3 class="text-center"> &nbsp;<b class="text-danger">{{ purchaseRequest.grocer.businessName | uppercase }}</b></h3>
+            <h3><b>N° Solicitud</b> <span class="pull-right">{{ purchaseRequest.requisitionNumber }}</span></h3>
+
+            <h5><b>Fecha Creación</b> <span class="pull-right">{{ purchaseRequest.auditProperties.dateCreate | slice:0:10 }}</span></h5>
+            <h5><b>Fecha Delivery</b> <span class="pull-right">{{ purchaseRequest.deliveryDate | slice:0:10 }}</span></h5>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive m-t-40" style="clear: both;">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">N°</th>
+                                    <th>Producto</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of purchaseRequest.products; let i = index">
+                                    <td class="text-center">{{ i + 1 }}</td>
+                                    <td class="text-center w100"><img 
+                                        [src]="product.url"
+                                        class="img-product"
+                                    ></td>
+                                    <td>{{ product.description }}</td>
+                                    <td>{{ product.detail }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+                    <div 
+                        class="text-right"
+                        *ngIf="isSupplier"
+                        >
+                        <button class="btn btn-info"  (click)="redirectoToCreateQuotation()" >Enviar cotización </button>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
-</div> 

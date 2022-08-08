@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError, map, pluck } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,8 @@ export class ProductService {
 
   getSetup () {
     return this.httpClient.get<any>(this.baseEndpoint + '/v1.0/setup').pipe(
-      map(response => {
-        return response
-      }),
-      catchError(response => {
-        console.error(`${JSON.stringify(ProductService.name)}::${this.getSetup.name}::error`, response);
-        throw new Error(`${JSON.stringify(ProductService.name)}::${this.getSetup.name}::error`);
-    })
+      pluck('data'),
+      catchError(error => this.thowError(error, this.getSetup.name) )
     )
   }
 
@@ -35,11 +31,13 @@ export class ProductService {
       map(response => {
           return response
       }),
-      catchError(response => {
-          console.error(`${JSON.stringify(ProductService.name)}::${this.paginationProduct.name}::error`, response);
-          throw new Error(`${JSON.stringify(ProductService.name)}::${this.paginationProduct.name}::error`);
-      })
+      catchError(error => this.thowError(error, this.paginationProduct.name) )
     )
   }
 
+
+  private thowError (error: any, methodName: string): Observable<void> {
+    console.error(`${JSON.stringify(ProductService.name)}::${methodName}::error`, error);
+    throw new Error(`${JSON.stringify(ProductService.name)}::${methodName}::error`);
+  }
 }

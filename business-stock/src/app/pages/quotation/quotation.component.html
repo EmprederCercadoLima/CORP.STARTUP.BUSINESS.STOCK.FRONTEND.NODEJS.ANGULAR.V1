@@ -1,66 +1,47 @@
-<div class="row">
+<div class="row animated fadeIn fast"
+    *ngIf="!loading">
     <div class="col-12">
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Lista de cotizaciones</h4>
-                <div class="table-responsive m-t-40">
-                    <div id="myTable_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="myTable_length"><label>Show <select name="myTable_length" aria-controls="myTable" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><table id="myTable" class="table table-bordered table-striped dataTable no-footer" role="grid" aria-describedby="myTable_info">
+                <h4 class="card-title">Lista de cotaizaciones</h4>
+                <div class="table-responsive">
+                    <table class="tablesaw table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-2133" style="">
                         <thead>
-                            <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="myTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 176.906px;">Nro. Cotizacion</th>
-                                <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 279.547px;">Nro. Solicitud</th>
-                                <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 279.547px;">Contacto</th>
-                                <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 130.016px;">Fecha entrega</th>
-                                <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 66.8906px;">Total</th>
-                                <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 122.172px;">Estado</th>
-                                <th tabindex="0" aria-controls="myTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 100.469px;"><a routerLink="/quotation/create"><i class="icon-plus"></i></a></th>
+                            <tr>
+                                <th class="text-center">N° Cotizacion</th>
+                                <th class="text-center">N° Solicitud</th>
+                                <th>Cliente</th>
+                                <th>Cantidad productos</th>
+                                <th>Precio Total</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr role="row" class="odd">
-                                <td class="sorting_1">PR_A0001</td>
-                                <td>2009/10/09</td>
-                                <td>Tokyo</td>
-                                <td>Tokyo</td>
-                                <td>33</td>
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                            </tr><tr role="row" class="even">
-                                <td class="sorting_1">PR_A0002</td>
-                                <td>2009/10/09</td>
-                                <td>London</td>
-                                <td>Tokyo</td>
-                                <td>47</td>
-                                <td>2009/10/09</td>
-                                <td>$1,200,000</td>
-                            </tr><tr role="row" class="odd">
-                                <td class="sorting_1">PR_A0003</td>
-                                <td>Junior Technical Author</td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                                <td>Tokyo</td>
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                            </tr><tr role="row" class="even">
-                                <td class="sorting_1">PR_A0004</td>
-                                <td>Software Engineer</td>
-                                <td>London</td>
-                                <td>41</td>
-                                <td>Tokyo</td>
-                                <td>2012/10/13</td>
-                                <td>$132,000</td>
-                            </tr><tr role="row" class="odd">
-                                <td class="sorting_1">PR_A0005</td>
-                                <td>Software Engineer</td>
-                                <td>San Francisco</td>
-                                <td>Tokyo</td>
-                                <td>28</td>
-                                <td>2011/06/07</td>
-                                <td>$206,850</td>
-                            </tr></tbody>
-                    </table><div class="dataTables_info" id="myTable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div><div class="dataTables_paginate paging_simple_numbers" id="myTable_paginate"><a class="paginate_button previous disabled" aria-controls="myTable" data-dt-idx="0" tabindex="0" id="myTable_previous">Previous</a><span><a class="paginate_button current" aria-controls="myTable" data-dt-idx="1" tabindex="0">1</a><a class="paginate_button " aria-controls="myTable" data-dt-idx="2" tabindex="0">2</a><a class="paginate_button " aria-controls="myTable" data-dt-idx="3" tabindex="0">3</a><a class="paginate_button " aria-controls="myTable" data-dt-idx="4" tabindex="0">4</a><a class="paginate_button " aria-controls="myTable" data-dt-idx="5" tabindex="0">5</a><a class="paginate_button " aria-controls="myTable" data-dt-idx="6" tabindex="0">6</a></span><a class="paginate_button next" aria-controls="myTable" data-dt-idx="7" tabindex="0" id="myTable_next">Next</a></div></div>
+                            <tr *ngFor="let quotation of quotations">
+                                <td>
+                                    <a
+                                        class="nav-link text-center" 
+                                        (click)="redirectTo(quotation.idQuotation)"
+                                        >{{quotation.quotationNumber}}
+                                    </a>
+                                </td>
+                                <td>{{quotation.requisitionNumber}}</td>
+                                <td>{{quotation.grocer}}</td>
+                                <td>{{quotation.quantityProducts}}</td>
+                                <td>{{quotation.total}}</td>
+                                <td>
+                                    <span [ngClass]="getClassStatusQuotation(quotation.status.value)">
+                                        {{quotation.status.description}}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <button (click)="generatePage(-1)" class="btn btn-secondary">Anteriores</button>
+                &nbsp;
+                <button (click)="generatePage(+1)" class="btn btn-secondary">Siguientes</button>
             </div>
         </div>
 

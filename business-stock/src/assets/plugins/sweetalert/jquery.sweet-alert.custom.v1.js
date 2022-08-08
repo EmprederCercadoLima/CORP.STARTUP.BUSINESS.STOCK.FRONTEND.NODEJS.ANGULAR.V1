@@ -1,4 +1,17 @@
+function saSuccess(messageHeader, messageBody, redirectTo) {
+    swal({
+        title: messageHeader, 
+        text: messageBody, 
+        type: "success"
+    }, function() {
+        window.location.href = redirectTo;
+    });
+}
 
-function saSuccess(messageHeader, messageBody) {
-    swal(messageHeader, messageBody, "success")
+function saWarning(messageHeader, messageBody) {
+    swal({   
+        title: messageHeader,   
+        text: messageBody,   
+        type: "warning"
+    });
 }

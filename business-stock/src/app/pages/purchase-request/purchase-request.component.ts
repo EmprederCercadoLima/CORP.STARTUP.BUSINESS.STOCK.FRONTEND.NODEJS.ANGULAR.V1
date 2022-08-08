@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PurchaseRequestService } from 'src/app/services/purchaserequest.service';
 import { Router } from '@angular/router'
+import { PurchaseRequestStatusEnum } from 'src/app/enums';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-purchase-request',
@@ -11,13 +13,15 @@ export class PurchaseRequestComponent implements OnInit {
 
   public loading: boolean = true;
 
-  purchaseRequests: any[] = []
-  totalPurchaseRequests: number = 0;
+  public purchaseRequests: any[] = [];
+  public totalPurchaseRequests: number = 0;
+  public requisitionNumbers: any[] = []
 
   public page: number = 1;
   public limit: number = 10;
 
   constructor(
+    private readonly authService: AuthService,
     private readonly purchaseRequestService: PurchaseRequestService,
     private readonly router: Router
   ) { 
@@ -29,7 +33,15 @@ export class PurchaseRequestComponent implements OnInit {
   }
 
   public getClassStatusTopPurchaseRequest(value: number){
-    return (value == 2) ? 'label label-danger' : 'label label-warning'
+    switch (value) {
+      case PurchaseRequestStatusEnum.sent_to_suppliers:
+        return 'label label-success';
+    
+      case PurchaseRequestStatusEnum.with_assigned_quotation:
+        return  'label label-info';
+    }
+
+    return 'label label-error'
   }
 
   generatePage(value: number) {
@@ -56,22 +68,20 @@ export class PurchaseRequestComponent implements OnInit {
 
     this.purchaseRequestService.getPurchaseRequest(pagination).subscribe(
       (sucess) => {
-        this.purchaseRequests = sucess.purchaseRequests,
+        this.purchaseRequests = sucess.purchaseRequests
+        this.requisitionNumbers = sucess.purchaseRequests.map((purchaseRequest: any) => purchaseRequest.requisitionNumber)
         this.totalPurchaseRequests = sucess.total
         this.loading = false;
       },
       (error) => {
-
+        console.error("NgxPurchaseRequestComponent::getPurchaseRequests::error", error);
       }
     )
   }
 
-  redirectTo(idPurchaseRequest: string, value: number) {
-    console.log("idPurchaseRequests", idPurchaseRequest, value)
-
-    const ulr = (value === 1) ? `purchaserequest/${idPurchaseRequest}/edit` : `${idPurchaseRequest}/info`
+  redirectTo(idPurchaseRequest: string) {
+    const ulr = `purchaserequest/${idPurchaseRequest}/info`
     this.router.navigateByUrl(ulr);
-
   }
 
 }

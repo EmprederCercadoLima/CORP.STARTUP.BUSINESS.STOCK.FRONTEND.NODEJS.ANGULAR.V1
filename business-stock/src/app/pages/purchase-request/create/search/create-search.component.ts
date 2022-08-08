@@ -73,12 +73,15 @@ export class PurchaseRequestCreateSearchComponent implements OnInit {
   }
 
   protected getSetup = () => {
+    this.loading = true;
     this.productService.getSetup().subscribe(
       (sucess) => { 
-        this.categories = sucess.data.categories
+        this.categories = sucess.categories;
+        this.loading = false;
       },
       (error) => {
-        console.error("NgxPurchaseRequestCreateComponent::productservice::ngOnInit::error", error)
+        console.error("NgxPurchaseRequestCreateComponent::productservice::ngOnInit::error", error);
+        this.loading = false;
       }
     )
   }

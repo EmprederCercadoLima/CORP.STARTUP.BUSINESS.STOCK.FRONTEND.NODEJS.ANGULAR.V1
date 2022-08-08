@@ -1,8 +1,17 @@
-<div class="row">
+<div 
+    class="row"
+    *ngIf="!loading"
+    >
     <div class="col-md-4">
         <h5 class="m-t-30 m-b-10">Palabras claves</h5>
         <input type="text" class="form-control form-control-line">
     </div>    
+
+    <div class="col-md-4">
+        <div class="example">
+            <h5 class="box-title m-t-30">Date Range With Time</h5>
+            <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM"> </div>
+    </div>
     <div class="col-md-4">
         <h5 class="m-t-30 m-b-10">Selecciona una categoria</h5>
         <div class="btn-group bootstrap-select">
@@ -12,7 +21,6 @@
                 tabindex="-98"
                 [(ngModel)]="idCategory"
                 (change)="selectedCategory(idCategory)"
-                
                 >
                 <option [value]=null>...</option>
                 <option 

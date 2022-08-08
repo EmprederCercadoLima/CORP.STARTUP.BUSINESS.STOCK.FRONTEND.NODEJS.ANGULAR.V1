@@ -1,3 +1,46 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div 
+                class="row"
+                *ngIf="!loading"
+                >
+                <div class="col-md-4">
+                    <h5 class="m-t-30 m-b-10">N° Solicitud</h5>
+                    <div class="btn-group bootstrap-select">
+                        <select 
+                            class="selectpicker" 
+                            data-style="form-control btn-secondary" 
+                            tabindex="-98"
+                            >
+                            <option [value]=null>...</option>
+                            <option 
+                                *ngFor="let requisitionNumber of requisitionNumbers" 
+                                [value]="requisitionNumber">
+                                {{requisitionNumber}}
+                              </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="example">
+                        <h5 class="box-title m-t-30">Date Range With Time</h5>
+                        <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM"> </div>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="m-t-30 m-b-10">Buscar</h5>
+                    <button 
+                        type="button" 
+                        class="btn waves-effect waves-light btn-block btn-info" 
+                    >Encuentra tus soliciitudes</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row animated fadeIn fast"
     *ngIf="!loading">
     <div class="col-12">
@@ -11,6 +54,7 @@
                             <tr>
                                 <th class="text-center">N° Solicitud</th>
                                 <th>Creado por</th>
+                                <th>Fecha creación</th>
                                 <th class="w180">Fecha de entrega
                                     (Tentativa)</th>
                                 <th class="w100">Cantidad Productos</th>
@@ -21,9 +65,14 @@
                         <tbody>
                             <tr *ngFor="let purchaseRequest of purchaseRequests">
                                 <td>
-                                    <a class="nav-link text-center" (click)="redirectTo(purchaseRequest.idPurchaseRequest, purchaseRequest.status.value)">{{purchaseRequest.requisitionNumber}}</a>
+                                    <a
+                                        class="nav-link text-center" 
+                                        (click)="redirectTo(purchaseRequest.idPurchaseRequest)"
+                                        >{{purchaseRequest.requisitionNumber}}
+                                    </a>
                                 </td>
                                 <td>{{purchaseRequest.userCreate.email}}</td>
+                                <td>{{purchaseRequest.dateCreate | slice:0:10 }}</td>
                                 <td>{{purchaseRequest.deliveryDate | slice:0:10 }}</td>
                                 <td>{{purchaseRequest.products}}</td>
                                 <td>{{purchaseRequest.quotations}}</td>

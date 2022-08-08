@@ -11,6 +11,10 @@ import { CryptoUtil } from 'src/app/utils/crypto.util';
 })
 export class LoginComponent implements OnInit {
 
+  public isInvalidCredentials = false;
+  public responseErrorStatusCode = 0;
+  public responseErrorMessage = '';
+
   user: any;
   getHashes : any
   postLogin: any;
@@ -53,11 +57,19 @@ export class LoginComponent implements OnInit {
 
       this.authService.postLogin(postLogin).subscribe(
           (sucess) => {
-              this.router.navigate(["/dashboard"])
+            this.router.navigate(["/dashboard"])
           }, 
-          (error) => {
-              console.error("NgxLoginComponent::ngOnInit::error", error)
+          (failed) => {
+            const { error } = failed
+            const { statusCode, message } = error
+            this.responseErrorMessage = message;
+
+            this.isInvalidCredentials = true;
           }
       )
+  }
+
+  closedError() {
+    this.isInvalidCredentials = false;
   }
 }

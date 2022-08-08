@@ -11,8 +11,6 @@ export class PurchaseRequestCreateComponent implements OnInit {
 
   public haveData: boolean = false;
 
-  public loading: boolean = true;
-
   public categories: any[] = [];
   public idCategory: string = '';
 
@@ -33,7 +31,7 @@ export class PurchaseRequestCreateComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.getShoppingCard();
+
   }
 
   loadProducts(products: any[]){
@@ -46,6 +44,7 @@ export class PurchaseRequestCreateComponent implements OnInit {
   }
 
   loadShoppingCardsPage(products: any[]) {
+    console.log("loadShoppingCardsPage", this.shoppingCardsPage);
     this.shoppingCardsPage = products.map((product: any) => {
       return {
         idProduct: product.idProduct,
@@ -61,7 +60,6 @@ export class PurchaseRequestCreateComponent implements OnInit {
   }
 
   getProducts () {
-    this.loading = true;
 
     let query: any = {
       page: this.page,
@@ -84,11 +82,9 @@ export class PurchaseRequestCreateComponent implements OnInit {
           }
         });
         this.totalProduct = total
-        this.loading = false;
       },
       (error) => {
         console.error("NgxProductComponent::getProducts::error", error);
-        this.loading = false;
       }
     )
   }
@@ -144,7 +140,8 @@ export class PurchaseRequestCreateComponent implements OnInit {
   }
 
   generateShoppingCard() {
-
+    console.log("generateShoppingCard", this.shoppingCardsPage)
+    console.log("generateShoppingCard", this.shoppingCards)
     let products = this.shoppingCardsPage.filter(product => product.isChecked)
 
     for (const product of this.shoppingCards) {
@@ -164,6 +161,7 @@ export class PurchaseRequestCreateComponent implements OnInit {
   }
 
   protected getShoppingCard = () => {
+    console.log("getShoppingCard")
     this.shoppingCardService.getShoppingCard().subscribe(
       (sucess) => {
         if(sucess.length)

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { throwError } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, delay, map, pluck } from 'rxjs/operators';
 
@@ -17,7 +18,7 @@ export class PurchaseRequestService {
       pluck('data'),
       catchError(response => {
           console.error(`${JSON.stringify(PurchaseRequestService.name)}::${this.getPurchaseRequestById.name}::error`, response);
-          throw new Error(`${JSON.stringify(PurchaseRequestService.name)}::${this.getPurchaseRequestById.name}::error`);
+          return throwError(response);
       })
     )
   }
@@ -28,7 +29,7 @@ export class PurchaseRequestService {
       pluck('data'),
       catchError(response => {
           console.error(`${JSON.stringify(PurchaseRequestService.name)}::${this.getPurchaseRequest.name}::error`, response);
-          throw new Error(`${JSON.stringify(PurchaseRequestService.name)}::${this.getPurchaseRequest.name}::error`);
+          return throwError(response);
       })
     )
   }
@@ -38,7 +39,7 @@ export class PurchaseRequestService {
       pluck('data'),
       catchError(response => {
           console.error(`${JSON.stringify(PurchaseRequestService.name)}::${this.postPurchaseRequest.name}::error`, response);
-          throw new Error(`${JSON.stringify(PurchaseRequestService.name)}::${this.postPurchaseRequest.name}::error`);
+          return throwError(response);
       })
     )
   }
@@ -50,7 +51,7 @@ export class PurchaseRequestService {
       }),
       catchError(response => {
           console.error(`${JSON.stringify(PurchaseRequestService.name)}::${this.patchPurchaseRequest.name}::error`, response);
-          throw new Error(`${JSON.stringify(PurchaseRequestService.name)}::${this.patchPurchaseRequest.name}::error`);
+          return throwError(response);
       })
     )
   }
